@@ -1,28 +1,31 @@
 *** Settings ***
-Library			Selenium2Library
-Library     XvfbRobot
+Library     Selenium2Library
+# Library     XvfbRobot
 
-Suite Setup		Go to Google
-Suite Teardown	Close All Browsers
+Suite Setup   Go to Google
+Suite Teardown  Close All Browsers
 
 
 *** Test Cases ***
 Ensure the capital of a country is displayed
-	Search and check		Russia				Moskau
-	Search and check		France				Paris
-	Search and check		The Netherlands		Amsterdam
-	Search and check		Denmark				werftyhuj
+  Search and check    Russia        Moskau
+  Search and check    France        Paris
+  Search and check    The Netherlands   Amsterdam
+  Search and check    Denmark       werftyhuj
 
 
 
 *** Keywords ***
 Go to Google
-  Start Virtual Display    1920    1080
-	Open Browser	https://google.com		chrome
+  # Start Virtual Display    1920    1080
+  # Create Webdriver  Chrome  executable_path=./chromedriver
+  # Go To  https://google.com
+  # Open Browser  https://google.com    chrome    my_alias    chrome_options=${chrome_options}
+  Open Browser  https://google.com    headlesschrome
 
 
 Search and check
-	[Arguments]		${query}	${expected_result}
-	Input Text		id=lst-ib	${query}
-	Click Button	id=_fZl
-	Wait Until Page Contains	${expected_result}
+  [Arguments]   ${query}  ${expected_result}
+  Input Text    id=lst-ib  ${query}
+  # Click Button  id=_fZl
+  # Wait Until Page Contains  ${expected_result}
