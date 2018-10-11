@@ -1,5 +1,6 @@
 *** Settings ***
-Library     Selenium2Library
+#Library     Selenium2Library  timeout=5.0  implicit_wait=0.0  run_on_failure=Capture Page Screenshot  screenshot_root_directory=/tmp
+Library    Selenium2Library  timeout=10   implicit_wait=1.5   run_on_failure=Capture Page Screenshot
 # Library     XvfbRobot
 
 Suite Setup   Go to Google
@@ -27,10 +28,12 @@ Go to Google
   Call Method    ${options}  add_argument  --headless
   Create WebDriver   Chrome  chrome_options=${options}
   Go To  https://google.com
-
+  # Capture Page Screenshot
+  # Should Be Equal  2  0
 
 Search and check
   [Arguments]   ${query}  ${expected_result}
   Input Text    id=lst-ib  ${query}
-  # Click Button  id=_fZl
+  # Should Be Equal 3  0
+  Click Button  id=_fZl
   # Wait Until Page Contains  ${expected_result}
