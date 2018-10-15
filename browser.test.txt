@@ -27,9 +27,17 @@ Go to Google
   ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
   Call Method    ${options}  add_argument  --no-sandbox
   #Call Method    ${options}  add_argument  --headless
+  
+  # ${prefs}    Create Dictionary    download.default_directory=${download_directory}   profile.password_manager_enabled=${False}  credentials_enable_service=${False}
+  # Call Method  ${options}  add_experimental_option  prefs  ${prefs}
+  Call Method  ${options}  add_argument  --disable-gpu
+  Call Method  ${options}  add_argument  --disable-infobars
+  # Call Method  ${options}  add_argument  --no-sandbox
+  Call Method  ${options}  add_argument  --ignore-certificate-errors
+  
   Call Method    ${options}  add_argument  --disable-dev-shm-usage
   Create WebDriver   Chrome  chrome_options=${options}
-  Go To  https://google.com
+  Go To  https://10.220.20.28:3000/login
   # Capture Page Screenshot
   # Should Be Equal  2  0
 
@@ -39,3 +47,4 @@ Search and check
   # Should Be Equal 3  0
   Click Button  id=_fZl
   # Wait Until Page Contains  ${expected_result}
+ 
