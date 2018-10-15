@@ -23,12 +23,13 @@ Go to Google
   # Go To  https://google.com
   # Open Browser  https://google.com    chrome    my_alias    chrome_options=${chrome_options}
   # Open Browser  https://google.com    headlesschrome
-  Open Browser  https://google.com    chrome
-  #${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-  #Call Method    ${options}  add_argument  --no-sandbox
+  #Open Browser  https://google.com    chrome
+  ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+  Call Method    ${options}  add_argument  --no-sandbox
   #Call Method    ${options}  add_argument  --headless
-  #Create WebDriver   Chrome  chrome_options=${options}
-  #Go To  https://google.com
+  Call Method    ${options}  add_argument  --disable-dev-shm-usage
+  Create WebDriver   Chrome  chrome_options=${options}
+  Go To  https://google.com
   # Capture Page Screenshot
   # Should Be Equal  2  0
 
